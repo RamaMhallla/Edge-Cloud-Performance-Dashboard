@@ -84,9 +84,8 @@ You can view simulation metrics like:
 
 ## 📌 Notes
 
-- This project is part of a research case study on **Edge vs Cloud resource management** in **real-time e-health** systems.
+- This project represents a comprehensive case study focused on **evaluating resource allocation strategies between Edge and Cloud infrastructures within real-time smart healthcare systems**.
 - It was implemented and tested using **Eclipse**, **Java 8+**, and **EdgeCloudSim** modified configuration files.
-
 
 
 ## 👩‍💻 Author
