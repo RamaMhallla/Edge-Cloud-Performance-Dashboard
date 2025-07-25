@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Policy Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #9b59b6;
+        --dark: #8e44ad;
+        --light: #ecf0f1;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f7fa;
+        color: #333;
+      }
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+      }
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .chart-container {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.08);
+        height: 400px;
+      }
+      canvas {
+        width: 100% !important;
+        height: 350px !important;
+      }
+      .chart-title {
+        color: var(--dark);
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="chart-grid">
+        <div class="chart-container">
+          <h2 class="chart-title">Failed Tasks Percentage</h2>
+          <canvas id="failedTasksChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <h2 class="chart-title">Average Service Time</h2>
+          <canvas id="serviceTimeChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-container">
+          <h2 class="chart-title">Average Processing Time</h2>
+          <canvas id="processingTimeChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <h2 class="chart-title">Average Network Delay</h2>
+          <canvas id="networkDelayChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          policy: params.get("policy") || "AIBASED",
+          color: params.get("color") || "#9b59b6",
+        };
+      }
+
+      const { policy, color } = getQueryParams();
+
+      const colors = {
+        AIBASED: { primary: "#9b59b6", dark: "#8e44ad" },
+        RANDOM: { primary: "#e74c3c", dark: "#c0392b" },
+        PER: { primary: "#f39c12", dark: "#d35400" },
+        GAME_THEORY: { primary: "#2ecc71", dark: "#27ae60" },
+      };
+
+      const primaryColor = colors[policy]?.primary || color;
+      const darkColor = colors[policy]?.dark || "#8e44ad";
+
+      document.documentElement.style.setProperty("--primary", primaryColor);
+      document.documentElement.style.setProperty("--dark", darkColor);
+      document.getElementById(
+        "pageTitle"
+      ).innerText = `${policy} Policy Dashboard`;
+
+      // Load data file dynamically
+      const dataScript = document.createElement("script");
+      dataScript.src = `js/${policy}_data.js`;
+      dataScript.onload = () => {
+        drawCharts();
+        resizeParentIframe();
+      };
+      dataScript.onerror = () => {
+        console.error("Error loading data file.");
+      };
+      document.body.appendChild(dataScript);
+
+      function formatNumber(value) {
+        let str = value.toString();
+        if (str.indexOf(".") !== -1) {
+          str = str.replace(/\.?0+$/, "");
+        }
+        return str;
+      }
+
+      function drawCharts() {
+        const chartConfig = {
+          type: "line",
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                mode: "index",
+                intersect: false,
+                displayColors: false,
+                callbacks: {
+                  label: function (ctx) {
+                    const yTitle = ctx.chart.options.scales.y.title.text;
+                    let value = ctx.raw;
+                    let unit = "";
+                    if (yTitle.includes("(ms)")) {
+                      value *= 1000;
+                      unit = "ms";
+                    } else if (yTitle.includes("(%)")) {
+                      value *= 100;
+                      unit = "%";
+                    }
+                    return `${ctx.dataset.label}: ${formatNumber(
+                      value
+                    )} ${unit}`;
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                title: { display: true, text: "Number of Devices" },
+              },
+              y: {
+                title: { display: true },
+                ticks: {
+                  callback: function (val) {
+                    const yTitle = this.chart.options.scales.y.title.text;
+                    let value = val;
+                    if (yTitle.includes("(ms)")) value *= 1000;
+                    if (yTitle.includes("(%)")) value *= 100;
+                    return formatNumber(value);
+                  },
+                },
+              },
+            },
+            elements: {
+              line: { tension: 0.3, borderWidth: 3 },
+              point: { radius: 5, hoverRadius: 8 },
+            },
+          },
+        };
+
+        const charts = [
+          [
+            "failedTasksChart",
+            "Failed Tasks",
+            iteration1.failedTasks,
+            iteration2.failedTasks,
+            "(%)",
+          ],
+          [
+            "serviceTimeChart",
+            "Service Time",
+            iteration1.serviceTime,
+            iteration2.serviceTime,
+            "(s)",
+          ],
+          [
+            "processingTimeChart",
+            "Processing Time",
+            iteration1.processingTime,
+            iteration2.processingTime,
+            "(s)",
+          ],
+          [
+            "networkDelayChart",
+            "Network Delay",
+            iteration1.networkDelay,
+            iteration2.networkDelay,
+            "(s)",
+          ],
+        ];
+
+        charts.forEach(([id, title, data1, data2, unit]) => {
+          const ctx = document.getElementById(id).getContext("2d");
+          const config = JSON.parse(JSON.stringify(chartConfig));
+          config.data = {
+            labels: deviceCounts,
+            datasets: [
+              {
+                label: "Edge",
+                data: data1,
+                borderColor: "#3498db",
+                backgroundColor: "rgba(52, 152, 219, 0.1)",
+              },
+              {
+                label: "Cloud",
+                data: data2,
+                borderColor: "#2ecc71",
+                backgroundColor: "rgba(46, 204, 113, 0.1)",
+              },
+            ],
+          };
+          config.options.scales.y.title.text = `${title} ${unit}`;
+          new Chart(ctx, config);
+        });
+      }
+
+      // Notify parent to resize iframe
+      function resizeParentIframe() {
+        setTimeout(() => {
+          const height = document.body.scrollHeight;
+          window.parent.postMessage({ type: "resize-iframe", height }, "*");
+        }, 300); // Slight delay to ensure rendering is complete
+      }
+    </script>
+    <!-- Dashboard_Template.html: فقط أضف هذا داخل drawCharts() بعد رسم جميع المخططات -->
+    <script>
+      function resizeParentIframe() {
+        setTimeout(() => {
+          const height = document.body.scrollHeight;
+          window.parent.postMessage({ type: "resize-iframe", height }, "*");
+        }, 200); // لتأخير بسيط بعد الرسم
+      }
+
+      window.addEventListener("load", () => {
+        drawCharts();
+        resizeParentIframe();
+      });
+    </script>
+  </body>
+</html>

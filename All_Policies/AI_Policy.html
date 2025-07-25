@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Edge Cloud Simulation - Iteration Comparison</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 30px 0;
+        margin-top: 40px;
+        position: relative;
+
+        padding: 30px 0; /* زيادة المساحة الداخلية */
+        position: relative; /* لتحديد موقع العناصر داخله */
+      }
+      .footer-content {
+        display: flex;
+        flex-direction: column; /* ترتيب العناصر عمودياً */
+        align-items: center; /* توسيط العناصر أفقيًا */
+      }
+      .home-btn {
+        text-decoration: none; /* هذه هي السطر الجديد المضاف */
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .home-btn:hover {
+        background-color: #2980b9; /* لون أزرق داكن عند التحويم */
+        transform: translateY(-3px); /* حركة خفيفة للأعلى */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* زيادة الظل */
+      }
+      .home-btn i {
+        margin-right: 8px; /* مسافة بين الأيقونة والنص */
+      }
+      :root {
+        --primary: #4caf50; /* Material green */
+        --dark: #2e7d32; /* Darker green */
+        --secondary: #2ecc71;
+
+        --light: #ecf0f1;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+        background-color: #f5f7fa;
+        color: #333;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 25px;
+        background: linear-gradient(135deg, var(--primary), var(--dark));
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+      }
+      .chart-container {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .chart-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      }
+      .chart-title {
+        color: var(--dark);
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.3rem;
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+      .chart-title i {
+        margin-right: 10px;
+        font-size: 1.2em;
+      }
+      canvas {
+        width: 100% !important;
+        height: 350px !important;
+      }
+      .comparison-highlight {
+        background: rgba(52, 152, 219, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid var(--primary);
+      }
+      .highlight-value {
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      /* Improved Tabs Styling */
+      .tabs-container {
+        margin-bottom: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 5px;
+      }
+
+      /* Improved Tabs Styling */
+      .tabs-container {
+        margin-bottom: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 5px;
+      }
+      .tabs {
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 15px 0;
+        cursor: pointer;
+        margin: 0 2px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        color: var(--dark);
+        border-bottom: 3px solid transparent;
+      }
+      .tab:first-child {
+        margin-left: 0;
+      }
+      .tab:last-child {
+        margin-right: 0;
+      }
+      .tab.active {
+        background: rgba(52, 152, 219, 0.1);
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary);
+      }
+      .tab:hover:not(.active) {
+        background: rgba(52, 152, 219, 0.05);
+      }
+      .tab i {
+        margin-right: 8px;
+        font-size: 0.9em;
+      }
+      .tab.active i {
+        color: var(--primary);
+      }
+
+      /* Tab content area */
+      .tab-content {
+        display: none;
+        padding: 25px;
+        background: white;
+        border-radius: 0 0 8px 8px;
+      }
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>
+        <i class="fas fa-project-diagram"></i> AI_BASED Policy - Iteration
+        Comparison
+      </h1>
+      <p>Comparing performance metrics between Iteration 1 and Iteration 2</p>
+    </div>
+    <div class="tabs-container">
+      <div class="tabs">
+        <a class="tab" href="random.html">
+          <i class="fas fa-random"></i> RANDOM
+        </a>
+        <a class="tab" href="per.html">
+          <i class="fas fa-chart-line"></i> PREDICTIVE
+        </a>
+        <a class="tab" href="GAME_THEORY.html">
+          <i class="fas fa-chess"></i> GAME_THEORY
+        </a>
+        <a class="tab active" href="AIBASED.html">
+          <i class="fas fa-brain"></i> AI_BASED
+        </a>
+      </div>
+
+      <!-- Tab content would go here -->
+      <div class="tab-content active">
+        <!-- Content for the active tab -->
+      </div>
+    </div>
+    <!-- Failed Tasks Comparison -->
+    <div class="chart-grid">
+      <div class="chart-container">
+        <h2 class="chart-title">
+          <i class="fas fa-exclamation-triangle"></i> Failed Tasks Percentage
+        </h2>
+        <canvas id="failedTasksChart"></canvas>
+        <div class="comparison-highlight">
+          Iteration 2 shows
+          <span class="highlight-value">14.2% lower</span> failure rates on
+          average compared to Iteration 1
+        </div>
+      </div>
+
+      <!-- Service Time Comparison -->
+      <div class="chart-container">
+        <h2 class="chart-title">
+          <i class="fas fa-stopwatch"></i> Average Service Time (seconds)
+        </h2>
+        <canvas id="serviceTimeChart"></canvas>
+        <div class="comparison-highlight">
+          Service times are nearly identical, with Iteration 2 being
+          <span class="highlight-value">0.03% faster</span> on average
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="chart-grid">
+      <!-- Processing Time Comparison -->
+      <div class="chart-container">
+        <h2 class="chart-title">
+          <i class="fas fa-tachometer-alt"></i> Average Processing Time
+          (seconds)
+        </h2>
+        <canvas id="processingTimeChart"></canvas>
+        <div class="comparison-highlight">
+          Iteration 2 processing is
+          <span class="highlight-value">0.04% faster</span> with more consistent
+          performance
+        </div>
+      </div>
+
+      <!-- Network Delay Comparison -->
+      <div class="chart-container">
+        <h2 class="chart-title">
+          <i class="fas fa-network-wired"></i> Average Network Delay (seconds)
+        </h2>
+        <canvas id="networkDelayChart"></canvas>
+        <div class="comparison-highlight">
+          Network delays are very similar, with Iteration 2 being
+          <span class="highlight-value">0.3% lower</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Device counts
+      const deviceCounts = [100, 200, 300, 400, 500];
+
+      // Data extracted from your simulation results
+      const iteration1 = {
+        failedTasks: [0.026522, 0.013131, 0.029766, 0.023974, 0.023844],
+        serviceTime: [0.181328, 0.181863, 0.182338, 0.182677, 0.182968],
+        processingTime: [0.150887, 0.151324, 0.151661, 0.151901, 0.152101],
+        networkDelay: [0.030441, 0.030539, 0.030677, 0.030776, 0.030867],
+      };
+
+      const iteration2 = {
+        failedTasks: [0.024541, 0.02107, 0.020467, 0.021487, 0.024579],
+        serviceTime: [0.181277, 0.181892, 0.182304, 0.18269, 0.183043],
+        processingTime: [0.150852, 0.151336, 0.15165, 0.151906, 0.152129],
+        networkDelay: [0.030425, 0.030556, 0.030654, 0.030784, 0.030915],
+      };
+
+      // Chart configuration
+      const chartConfig = {
+        type: "line",
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              labels: {
+                padding: 20,
+                usePointStyle: true,
+                font: { size: 12 },
+              },
+            },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+              callbacks: {
+                label: function (context) {
+                  let label = context.dataset.label || "";
+                  if (label) label += ": ";
+                  if (context.parsed.y !== null) {
+                    label += context.parsed.y.toFixed(6);
+                  }
+                  return label;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Number of Devices",
+                font: { weight: "bold", size: 12 },
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                font: { weight: "bold", size: 12 },
+              },
+            },
+          },
+          elements: {
+            line: {
+              tension: 0.3,
+              borderWidth: 3,
+            },
+            point: {
+              radius: 5,
+              hoverRadius: 8,
+            },
+          },
+        },
+      };
+
+      // Create charts
+      function createComparisonChart(
+        id,
+        title,
+        iter1Data,
+        iter2Data,
+        unit = ""
+      ) {
+        const ctx = document.getElementById(id).getContext("2d");
+        const config = {
+          ...chartConfig,
+          data: {
+            labels: deviceCounts,
+            datasets: [
+              {
+                label: "Iteration 1",
+                data: iter1Data,
+                borderColor: "#3498db",
+                backgroundColor: "rgba(52, 152, 219, 0.1)",
+                fill: false,
+              },
+              {
+                label: "Iteration 2",
+                data: iter2Data,
+                borderColor: "#2ecc71",
+                backgroundColor: "rgba(46, 204, 113, 0.1)",
+                fill: false,
+              },
+            ],
+          },
+        };
+
+        // Set Y-axis title
+        config.options.scales.y.title.text = title + (unit ? ` (${unit})` : "");
+
+        return new Chart(ctx, config);
+      }
+
+      // Initialize all charts
+      createComparisonChart(
+        "failedTasksChart",
+        "Failed Tasks",
+        iteration1.failedTasks,
+        iteration2.failedTasks,
+        "%"
+      );
+
+      createComparisonChart(
+        "serviceTimeChart",
+        "Service Time",
+        iteration1.serviceTime,
+        iteration2.serviceTime,
+        "seconds"
+      );
+
+      createComparisonChart(
+        "processingTimeChart",
+        "Processing Time",
+        iteration1.processingTime,
+        iteration2.processingTime,
+        "seconds"
+      );
+
+      createComparisonChart(
+        "networkDelayChart",
+        "Network Delay",
+        iteration1.networkDelay,
+        iteration2.networkDelay,
+        "seconds"
+      );
+    </script>
+    <script>
+      // Simple tab switching functionality
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", function (e) {
+          // Remove active class from all tabs
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          // Add active class to clicked tab
+          this.classList.add("active");
+
+          // You would add code here to switch tab content as well
+        });
+      });
+    </script>
+    <div class="container-fluid">
+      <!-- [Previous content remains exactly the same until the footer] -->
+
+      <footer class="mt-5">
+        <div class="container footer-content">
+          <a href="index.html" class="home-btn">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+          <p class="mb-0">
+            EdgeCloudSim Simulation - Heart Monitoring App Scenario
+          </p>
+          <p class="mb-0">
+            <small>Evaluating Edge Computing for Healthcare Applications</small>
+          </p>
+        </div>
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

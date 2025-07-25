@@ -1,0 +1,300 @@
+Scenario started at 20/07/2025 19:23:10
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 1
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 100
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 56557(56557/0)
+# of failed tasks (Edge/Cloud): 15(15/0)
+# of completed tasks (Edge/Cloud): 56542(56542/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 56557(56557/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 15(15/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 56542(56542/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 15/0/0(0/0/0/0)
+percentage of failed tasks: 0.026522%
+average service time: 0.181328 seconds. (on Edge: 0.181328, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.150887 seconds. (on Edge: 0.150887, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030441 seconds. (LAN delay: 0.020587, MAN delay: 0.010101, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.093117/0.000000/0.000000
+average cost: 0.0$
+average overhead: 8436.490620082395 ns
+average QoE (for all): 99.9734780840568%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:23:12. It took 1 Second
+
+
+Scenario started at 20/07/2025 19:23:20
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 1
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 200
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 114230(114230/0)
+# of failed tasks (Edge/Cloud): 15(15/0)
+# of completed tasks (Edge/Cloud): 114215(114215/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 114230(114230/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 15(15/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 114215(114215/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 5(4/0/1)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 15/0/0(0/0/0/0)
+percentage of failed tasks: 0.013131%
+average service time: 0.181863 seconds. (on Edge: 0.181863, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151324 seconds. (on Edge: 0.151324, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030539 seconds. (LAN delay: 0.020691, MAN delay: 0.010098, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.193190/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5747.71163442178 ns
+average QoE (for all): 99.98686859844175%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:23:22. It took 2 Seconds
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:23:31
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 1
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 300
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 171339(171339/0)
+# of failed tasks (Edge/Cloud): 51(51/0)
+# of completed tasks (Edge/Cloud): 171288(171288/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 171339(171339/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 51(51/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 171288(171288/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 6(6/0/0)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 51/0/0(0/0/0/0)
+percentage of failed tasks: 0.029766%
+average service time: 0.182338 seconds. (on Edge: 0.182338, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151661 seconds. (on Edge: 0.151661, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030677 seconds. (LAN delay: 0.020833, MAN delay: 0.010101, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.286244/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5341.140662662908 ns
+average QoE (for all): 99.97023444749883%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:23:34. It took 2 Seconds
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:23:47
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 1
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 400
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 229419(229419/0)
+# of failed tasks (Edge/Cloud): 55(55/0)
+# of completed tasks (Edge/Cloud): 229364(229364/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 229419(229419/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 55(55/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 229364(229364/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 11(10/0/1)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 55/0/0(0/0/0/0)
+percentage of failed tasks: 0.023974%
+average service time: 0.182677 seconds. (on Edge: 0.182677, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151901 seconds. (on Edge: 0.151901, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030776 seconds. (LAN delay: 0.020922, MAN delay: 0.010101, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.375125/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5280.616688242909 ns
+average QoE (for all): 99.9760263971162%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:23:51. It took 4 Seconds
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:24:06
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 1
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 500
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 285190(285190/0)
+# of failed tasks (Edge/Cloud): 68(68/0)
+# of completed tasks (Edge/Cloud): 285122(285122/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 285190(285190/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 68(68/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 285122(285122/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 21(21/0/0)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 68/0/0(0/0/0/0)
+percentage of failed tasks: 0.023844%
+average service time: 0.182968 seconds. (on Edge: 0.182968, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.152101 seconds. (on Edge: 0.152101, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030867 seconds. (LAN delay: 0.021018, MAN delay: 0.010103, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.478934/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5175.841719555384 ns
+average QoE (for all): 99.97615624671272%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:24:11. It took 4 Seconds
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:25:29
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 2
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 100
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 57047(57047/0)
+# of failed tasks (Edge/Cloud): 14(14/0)
+# of completed tasks (Edge/Cloud): 57033(57033/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 57047(57047/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 14(14/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 57033(57033/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 5(5/0/0)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 14/0/0(0/0/0/0)
+percentage of failed tasks: 0.024541%
+average service time: 0.181277 seconds. (on Edge: 0.181277, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.150852 seconds. (on Edge: 0.150852, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030425 seconds. (LAN delay: 0.020590, MAN delay: 0.010096, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.093523/0.000000/0.000000
+average cost: 0.0$
+average overhead: 8106.263256612969 ns
+average QoE (for all): 99.975458832191%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:25:31. It took 1 Second
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:25:38
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 2
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 200
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 113906(113906/0)
+# of failed tasks (Edge/Cloud): 24(24/0)
+# of completed tasks (Edge/Cloud): 113882(113882/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 113906(113906/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 24(24/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 113882(113882/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 7(6/0/1)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 24/0/0(0/0/0/0)
+percentage of failed tasks: 0.021070%
+average service time: 0.181892 seconds. (on Edge: 0.181892, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151336 seconds. (on Edge: 0.151336, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030556 seconds. (LAN delay: 0.020704, MAN delay: 0.010097, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.188110/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5001.5811282987725 ns
+average QoE (for all): 99.97892999490809%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:25:40. It took 1 Second
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:25:48
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 2
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 300
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 171007(171007/0)
+# of failed tasks (Edge/Cloud): 35(35/0)
+# of completed tasks (Edge/Cloud): 170972(170972/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 171007(171007/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 35(35/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 170972(170972/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 8(8/0/0)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 35/0/0(0/0/0/0)
+percentage of failed tasks: 0.020467%
+average service time: 0.182304 seconds. (on Edge: 0.182304, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151650 seconds. (on Edge: 0.151650, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030654 seconds. (LAN delay: 0.020807, MAN delay: 0.010101, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.282336/0.000000/0.000000
+average cost: 0.0$
+average overhead: 5165.631231470057 ns
+average QoE (for all): 99.97953300157303%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:25:51. It took 2 Seconds
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:26:03
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 2
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 400
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 228049(228049/0)
+# of failed tasks (Edge/Cloud): 49(49/0)
+# of completed tasks (Edge/Cloud): 228000(228000/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 228049(228049/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 49(49/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 228000(228000/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 13(11/0/2)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 49/0/0(0/0/0/0)
+percentage of failed tasks: 0.021487%
+average service time: 0.182690 seconds. (on Edge: 0.182690, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.151906 seconds. (on Edge: 0.151906, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030784 seconds. (LAN delay: 0.020928, MAN delay: 0.010101, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.383191/0.000000/0.000000
+average cost: 0.0$
+average overhead: 4927.8141978259055 ns
+average QoE (for all): 99.97851338966626%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:26:06. It took 3 Seconds
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Scenario started at 20/07/2025 19:26:21
+Scenario: ITS_SCENARIO - Policy: AI_BASED - #iteration: 2
+Duration: 60.0 min (warm up period: 3.0 min) - #devices: 500
+Creating tasks...Done, 
+Creating device locations...Done.
+SimManager is starting...Done.
+.........10.........20.........30.........40.........50.........60.........70.........80.........90.........100
+HEART_MONITORING_APP
+# of tasks (Edge/Cloud): 284793(284793/0)
+# of failed tasks (Edge/Cloud): 70(70/0)
+# of completed tasks (Edge/Cloud): 284723(284723/0)
+---------------------------------------
+# of tasks (Edge/Cloud/Mobile): 284793(284793/0/0)
+# of failed tasks (Edge/Cloud/Mobile): 70(70/0/0)
+# of completed tasks (Edge/Cloud/Mobile): 284723(284723/0/0)
+# of uncompleted tasks (Edge/Cloud/Mobile): 13(12/0/1)
+# of failed tasks due to vm capacity (Edge/Cloud/Mobile): 0(0/0/0)
+# of failed tasks due to Mobility/WLAN Range/Network(WLAN/MAN/WAN/GSM): 70/0/0(0/0/0/0)
+percentage of failed tasks: 0.024579%
+average service time: 0.183043 seconds. (on Edge: 0.183043, on Cloud: NaN, on Mobile: NaN)
+average processing time: 0.152129 seconds. (on Edge: 0.152129, on Cloud: NaN, on Mobile: NaN)
+average network delay: 0.030915 seconds. (LAN delay: 0.021058, MAN delay: 0.010106, WAN delay: NaN, GSM delay: NaN)
+average server utilization Edge/Cloud/Mobile: 0.475886/0.000000/0.000000
+average cost: 0.0$
+average overhead: 4979.7308922621 ns
+average QoE (for all): 99.97542074418963%
+average QoE (for executed): 100.0%
+Scenario finished at 20/07/2025 19:26:26. It took 4 Seconds
+----------------------------------------------------------------------

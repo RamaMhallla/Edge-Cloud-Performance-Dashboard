@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EdgeCloudSim - Heart Monitoring App Simulation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #3498db;
+        --secondary: #2ecc71;
+        --dark: #2c3e50;
+        --light: #ecf0f1;
+        --orange: #e67e22;
+        --purple: #9b59b6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        background-color: #f5f7fa;
+        color: #333;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      .container-fluid {
+        padding: 0 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, var(--primary), var(--dark));
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .card {
+        margin-bottom: 30px;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .policy-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .policy-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-header {
+        font-weight: bold;
+        color: white;
+        border-radius: 12px 12px 0 0 !important;
+        padding: 15px 20px;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-2px);
+      }
+
+      .results-btn-container {
+        text-align: center;
+        margin: 40px 0;
+      }
+
+      .results-btn {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        background-color: var(--dark);
+        border: none;
+        border-radius: 8px;
+      }
+
+      .results-btn:hover {
+        background-color: #1a252f;
+      }
+
+      .comparison-highlight {
+        background: rgba(52, 152, 219, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid var(--primary);
+      }
+
+      .algorithm-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: bold;
+        margin-right: 8px;
+        transition: all 0.2s ease;
+      }
+
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 20px 0;
+        margin-top: 40px;
+      }
+
+      /* Policy specific colors */
+      .random-card .card-header {
+        background-color: var(--primary);
+      }
+      .random-card:hover {
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+      }
+
+      .predictive-card .card-header {
+        background-color: var(--secondary);
+      }
+      .predictive-card:hover {
+        box-shadow: 0 8px 25px rgba(46, 204, 113, 0.2);
+      }
+
+      .game-card .card-header {
+        background-color: var(--orange);
+      }
+      .game-card:hover {
+        box-shadow: 0 8px 25px rgba(230, 126, 34, 0.2);
+      }
+
+      .ai-card .card-header {
+        background-color: var(--purple);
+      }
+      .ai-card:hover {
+        box-shadow: 0 8px 25px rgba(155, 89, 182, 0.2);
+      }
+
+      .resource-card {
+        transition: all 0.3s ease;
+      }
+      .resource-card:hover {
+        transform: scale(1.03);
+      }
+
+      /* Tooltip styles */
+      .tooltip-text {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--dark);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 100;
+      }
+
+      .policy-card:hover .tooltip-text {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="header">
+        <h1><i class="fas fa-heartbeat"></i> EdgeCloudSim Simulation</h1>
+        <h2>Heart Monitoring App Scenario</h2>
+        <p class="lead">
+          Evaluating Edge vs Cloud Processing for Time-Sensitive Healthcare
+          Applications
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header" style="background-color: var(--dark)">
+              <i class="fas fa-cogs"></i> Simulation Parameters
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <span class="highlight">Simulation Time:</span> 60 minutes
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Warm-up Period:</span> 3 minutes
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Mobile Devices:</span> 100-500
+                  (increments of 100)
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">VM Load Check Interval:</span> 0.025
+                  seconds
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Location Check Interval:</span> 0.005
+                  seconds
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">AP Delay Check Interval:</span> 0.1
+                  seconds
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header" style="background-color: var(--dark)">
+              <i class="fas fa-heartbeat"></i> Heart Monitoring App
+              Configuration
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <span class="highlight">Usage Percentage:</span> 100%
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Delay Sensitivity:</span> 0.8 (High)
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Max Delay Requirement:</span> 1.5
+                  seconds
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Task Interarrival:</span> 6 seconds
+                  (Poisson)
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Active Period:</span> 3600 seconds
+                </li>
+                <li class="list-group-item">
+                  <span class="highlight">Task Length:</span> 1500 MI (Million
+                  Instructions)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header" style="background-color: var(--dark)">
+              <i class="fas fa-robot"></i> Orchestrator Policies
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <a class="text-decoration-none">
+                    <div class="card h-100 policy-card random-card">
+                      <div class="card-header">
+                        <i class="fas fa-random"></i> RANDOM
+                      </div>
+                      <div class="card-body">
+                        <p>
+                          Each time the execution location is chosen randomly
+                          between edge and cloud.
+                        </p>
+                        <span
+                          class="algorithm-tag"
+                          style="
+                            background-color: rgba(52, 152, 219, 0.2);
+                            color: var(--primary);
+                          "
+                        >
+                          <i class="fas fa-dice"></i> Random Selection
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-3">
+                  <a class="text-decoration-none">
+                    <div class="card h-100 policy-card predictive-card">
+                      <div class="card-header">
+                        <i class="fas fa-chart-line"></i> PREDICTIVE
+                      </div>
+                      <div class="card-body">
+                        <p>
+                          Decides based on performance expectations (if edge is
+                          overloaded, uses cloud).
+                        </p>
+                        <span
+                          class="algorithm-tag"
+                          style="
+                            background-color: rgba(46, 204, 113, 0.2);
+                            color: var(--secondary);
+                          "
+                        >
+                          <i class="fas fa-brain"></i> Predictive
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-3">
+                  <a class="text-decoration-none">
+                    <div class="card h-100 policy-card game-card">
+                      <div class="card-header">
+                        <i class="fas fa-chess"></i> GAME_THEORY
+                      </div>
+                      <div class="card-body">
+                        <p>
+                          Uses game theory to choose the best location
+                          benefiting both user and system.
+                        </p>
+                        <span
+                          class="algorithm-tag"
+                          style="
+                            background-color: rgba(230, 126, 34, 0.2);
+                            color: var(--orange);
+                          "
+                        >
+                          <i class="fas fa-gamepad"></i> Game Theory
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-3">
+                  <a class="text-decoration-none">
+                    <div class="card h-100 policy-card ai-card">
+                      <div class="card-header">
+                        <i class="fas fa-brain"></i> AI_BASED
+                      </div>
+                      <div class="card-body">
+                        <p>
+                          AI-powered decisions based on real-time system data
+                          and historical patterns.
+                        </p>
+                        <span
+                          class="algorithm-tag"
+                          style="
+                            background-color: rgba(155, 89, 182, 0.2);
+                            color: var(--purple);
+                          "
+                        >
+                          <i class="fas fa-ai"></i> AI-Based
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header" style="background-color: var(--dark)">
+              <i class="fas fa-bullseye"></i> Simulation Goals
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div
+                      class="card-header"
+                      style="background-color: var(--primary)"
+                    >
+                      <i class="fas fa-tachometer-alt"></i> Performance Metrics
+                    </div>
+                    <div class="card-body">
+                      <ul>
+                        <li>
+                          Measure service time changes with increasing users
+                        </li>
+                        <li>Track number of failed tasks as load increases</li>
+                        <li>
+                          Evaluate delay compliance (1.5s max requirement)
+                        </li>
+                      </ul>
+                      <div class="comparison-highlight">
+                        <i class="fas fa-info-circle"></i> Focus on how system
+                        handles 100-500 concurrent users
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div
+                      class="card-header"
+                      style="background-color: var(--primary)"
+                    >
+                      <i class="fas fa-clipboard-list"></i> Scenario Details
+                    </div>
+                    <div class="card-body">
+                      <ul>
+                        <li>Realistic healthcare emergency scenario</li>
+                        <li>
+                          500 simulated patients using heart monitoring app
+                        </li>
+                        <li>Critical decisions: Edge vs Cloud processing</li>
+                        <li>Smart routing based on system state</li>
+                      </ul>
+                      <div class="comparison-highlight">
+                        <i class="fas fa-exclamation-triangle"></i> High delay
+                        sensitivity (0.8) with 1.5s max requirement
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header" style="background-color: var(--dark)">
+              <i class="fas fa-server"></i> Resource Utilization
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card h-100 resource-card">
+                    <div
+                      class="card-header"
+                      style="background-color: var(--secondary)"
+                    >
+                      <i class="fas fa-network-wired"></i> Edge (Mobile Device)
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        <span class="highlight">Utilization:</span> 30%
+                      </p>
+                      <p class="card-text">
+                        Tasks processed on edge with 30% load
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card h-100 resource-card">
+                    <div
+                      class="card-header"
+                      style="background-color: var(--primary)"
+                    >
+                      <i class="fas fa-cloud"></i> Cloud VM
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        <span class="highlight">Utilization:</span> 100%
+                      </p>
+                      <p class="card-text">
+                        Tasks processed on cloud with full load
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-btn-container">
+        <a href="index.html" class="btn btn-primary results-btn">
+          <i class="fas fa-chart-bar"></i> View All Simulation Results
+        </a>
+      </div>
+    </div>
+
+    <footer class="mt-5">
+      <div class="container text-center">
+        <p class="mb-0">
+          EdgeCloudSim Simulation - Heart Monitoring App Scenario
+        </p>
+        <p class="mb-0">
+          <small>Evaluating Edge Computing for Healthcare Applications</small>
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Animated message when hovering over policy cards
+      document.addEventListener("DOMContentLoaded", function () {
+        const policyCards = document.querySelectorAll(".policy-card");
+
+        policyCards.forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            const tooltip = this.querySelector(".tooltip-text");
+            tooltip.style.opacity = "1";
+
+            // Animation effect
+            tooltip.style.transform = "translateX(-50%) translateY(10px)";
+            setTimeout(() => {
+              tooltip.style.transform = "translateX(-50%) translateY(0)";
+            }, 50);
+          });
+
+          card.addEventListener("mouseleave", function () {
+            const tooltip = this.querySelector(".tooltip-text");
+            tooltip.style.opacity = "0";
+          });
+        });
+
+        // Additional animation for the main button
+        const resultsBtn = document.querySelector(".results-btn");
+        resultsBtn.addEventListener("mouseenter", function () {
+          this.innerHTML =
+            '<i class="fas fa-chart-bar"></i> Explore Simulation Results <i class="fas fa-arrow-right"></i>';
+        });
+
+        resultsBtn.addEventListener("mouseleave", function () {
+          this.innerHTML =
+            '<i class="fas fa-chart-bar"></i> View All Simulation Results';
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edge Cloud Performance Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #3498db;
+        --secondary: #2ecc71;
+        --dark: #2c3e50;
+        --light: #ecf0f1;
+        --orange: #e67e22;
+        --purple: #9b59b6;
+        --red: #e74c3c;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      body {
+        background-color: var(--light);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--primary), var(--dark));
+        color: white;
+        padding: 3rem 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        border-radius: 0 0 1.5rem 1.5rem;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        transform: rotate(30deg);
+      }
+
+      .header h1 {
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        position: relative;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      iframe {
+        width: 100%;
+        border: none;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        background: white;
+        min-height: 800px;
+      }
+
+      iframe:hover {
+        box-shadow: var(--shadow-lg);
+      }
+
+      footer {
+        background: linear-gradient(to right, var(--dark), #34495e);
+        color: white;
+        padding: 2.5rem 0;
+        margin-top: 3rem;
+        text-align: center;
+        border-radius: 1.5rem 1.5rem 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+      }
+
+      .home-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-top: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+
+      .home-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      .home-btn i {
+        margin-right: 8px;
+      }
+
+      .tabs-container {
+        margin-bottom: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-sm);
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 1rem 0.5rem;
+        cursor: pointer;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: var(--transition);
+        color: var(--dark);
+        border-bottom: 3px solid transparent;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tab i {
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+      }
+
+      .tab.active {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .tab:hover:not(.active) {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+      }
+
+      /* Policy-specific styles */
+      .tab[data-policy="AIBASED"] {
+        color: var(--purple);
+      }
+      .tab[data-policy="AIBASED"].active {
+        background: rgba(155, 89, 182, 0.1);
+        border-bottom: 3px solid var(--purple);
+      }
+      .tab[data-policy="AIBASED"]:hover {
+        background: rgba(155, 89, 182, 0.05);
+      }
+
+      .tab[data-policy="RANDOM"] {
+        color: var(--red);
+      }
+      .tab[data-policy="RANDOM"].active {
+        background: rgba(231, 76, 60, 0.1);
+        border-bottom: 3px solid var(--red);
+      }
+      .tab[data-policy="RANDOM"]:hover {
+        background: rgba(231, 76, 60, 0.05);
+      }
+
+      .tab[data-policy="PER"] {
+        color: var(--orange);
+      }
+      .tab[data-policy="PER"].active {
+        background: rgba(230, 126, 34, 0.1);
+        border-bottom: 3px solid var(--orange);
+      }
+      .tab[data-policy="PER"]:hover {
+        background: rgba(230, 126, 34, 0.05);
+      }
+
+      .tab[data-policy="GAME_THEORY"] {
+        color: var(--secondary);
+      }
+      .tab[data-policy="GAME_THEORY"].active {
+        background: rgba(46, 204, 113, 0.1);
+        border-bottom: 3px solid var(--secondary);
+      }
+      .tab[data-policy="GAME_THEORY"]:hover {
+        background: rgba(46, 204, 113, 0.05);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
+        .tabs {
+          flex-wrap: wrap;
+        }
+
+        .tab {
+          min-width: 48%;
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .header h1 {
+          font-size: 1.75rem;
+        }
+
+        .header p {
+          font-size: 1rem;
+        }
+
+        .tab {
+          min-width: 100%;
+          padding: 0.75rem;
+        }
+
+        .tab i {
+          margin-bottom: 0.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>
+        <i class="fas fa-project-diagram"></i> Edge Cloud Performance Dashboard
+      </h1>
+      <p>
+        Explore and compare the simulation results of different scheduling
+        policies in our smart healthcare system
+      </p>
+    </div>
+
+    <div class="container-fluid px-0">
+      <div class="tabs-container">
+        <div class="tabs">
+          <div class="tab active" data-policy="AIBASED">
+            <i class="fas fa-brain"></i>
+            <span>AI Based</span>
+          </div>
+          <div class="tab" data-policy="RANDOM">
+            <i class="fas fa-random"></i>
+            <span>Random</span>
+          </div>
+          <div class="tab" data-policy="PER">
+            <i class="fas fa-chart-line"></i>
+            <span>Predictive</span>
+          </div>
+          <div class="tab" data-policy="GAME_THEORY">
+            <i class="fas fa-chess"></i>
+            <span>Game Theory</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid px-lg-4 px-md-3 px-sm-2">
+      <iframe
+        id="policyFrame"
+        src="Dashboard_Template.html?policy=AIBASED"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p class="mb-2">
+          <i class="fas fa-heartbeat me-2"></i> EdgeCloudSim Simulation - Heart
+          Monitoring Application
+        </p>
+        <p class="mb-0">
+          <small>
+            Evaluating Edge vs Cloud Inference Strategies for Real-time
+            Healthcare Analytics
+          </small>
+        </p>
+        <a href="home.html" class="home-btn">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      function getPolicyColor(policy) {
+        switch (policy) {
+          case "AIBASED":
+            return "#9b59b6";
+          case "RANDOM":
+            return "#e74c3c";
+          case "PER":
+            return "#f39c12";
+          case "GAME_THEORY":
+            return "#2ecc71";
+          default:
+            return "#9b59b6";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab");
+        const iframe = document.getElementById("policyFrame");
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            // Remove active class from all tabs
+            tabs.forEach((t) => t.classList.remove("active"));
+
+            // Add active class to clicked tab
+            this.classList.add("active");
+
+            // Get policy and color
+            const policy = this.dataset.policy;
+            const color = getPolicyColor(policy);
+
+            // Update iframe source with cache-busting parameter
+            iframe.src = `Dashboard_Template.html?policy=${policy}&color=${encodeURIComponent(
+              color
+            )}&t=${Date.now()}`;
+
+            // Add loading animation
+            iframe.style.opacity = "0.7";
+            setTimeout(() => {
+              iframe.style.opacity = "1";
+            }, 300);
+          });
+        });
+
+        // Initial resize
+        setTimeout(() => {
+          window.dispatchEvent(new Event("resize"));
+        }, 1000);
+      });
+
+      window.addEventListener("message", function (event) {
+        if (event.data.type === "resize-iframe") {
+          const iframe = document.getElementById("policyFrame");
+          iframe.style.height = event.data.height + "px";
+
+          // Smooth height transition
+          iframe.style.transition = "height 0.3s ease";
+          setTimeout(() => {
+            iframe.style.transition = "";
+          }, 300);
+        }
+      });
+    </script>
+  </body>
+</html>
