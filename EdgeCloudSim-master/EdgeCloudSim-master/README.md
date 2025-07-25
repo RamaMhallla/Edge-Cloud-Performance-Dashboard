@@ -74,9 +74,9 @@ A custom **interactive dashboard** was developed using:
 
 You can view simulation metrics like:
 - Average service time
-- Task success/failure rate
-- Network/server utilization
-- QoE (Quality of Experience)
+- Failed Tasks Percentage
+- Average Processing Time
+- Average Network Delay
 
 ➡️ Live Dashboard:  
 [https://ramamhallla.github.io/Edge-Cloud-Performance-Dashboard/](https://ramamhallla.github.io/Edge-Cloud-Performance-Dashboard/)
@@ -93,6 +93,7 @@ You can view simulation metrics like:
 
 Rama Mhallla  
 Vincenzo Damico
+
 MSc in Telecommunication Engineering – University of Calabria  
 [GitHub Profile](https://github.com/RamaMhallla)
 
